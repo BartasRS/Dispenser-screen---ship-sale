@@ -123,17 +123,12 @@ addTxt (font3, 745, 74, "Core type: " .. info[0][17], 1, .5, 0)
  -- image window
 addWindow(20, 100, 600, 400)
 
-if info[0][1] == "" then 
- --   local shipimg = loadImage("assets.prod.novaquark.com/52764/bf6a920c-619c-496e-957d-da0cdc5d32a2.jpg")
- --   addImage(layer, shipimg, 22, 102, 596, 396)
-    
+if info[0][1] == "" then   
     addTxt(font, 120, 300, "Image not available", 1, .5, 0)
-    
     else
     local shipimg = loadImage(info[0][1])
     addImage(layer, shipimg, 22, 102, 596, 396)
     end
-
 
  -- stats window
 addWindow(640, 100, 364, 400)
