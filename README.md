@@ -7,4 +7,6 @@ Changes to content are made between</br>
 -- SHIP INFO</br>
 -- END of SHIP INFO</br>
 lines
+</br></br>
+Ship images need to be uploaded to Dual Universe account
 
