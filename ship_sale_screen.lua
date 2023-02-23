@@ -1,3 +1,5 @@
+local rslib = require('rslib')
+
 local rx, ry = getResolution ()
 local font = loadFont("Play-Bold", 40)
 local font2 = loadFont("Play", 30)
@@ -7,38 +9,40 @@ local font4 = loadFont("Play", 20)
 local HoneycombLayer = createLayer()
 local OutlineLayer = createLayer()
 local layer = createLayer()
+local imagelayer = createLayer()
 
 -- SHIP INFO
 if not init then
     info = {}
-    for ix=0,6 do
+    for ix=0,0 do
         info[ix] = {}
         for iy=0,16 do
             info[ix][iy] = 0
         end
     end
     info[0][0] = "Mission Runner" --ship name
-    info[0][1] = "assets.prod.novaquark.com/73854/78249e3f-e6c1-4baf-b3bd-76c6004564f5.png" --img src, leave "" if you do not have a picture uploaded
-    info[0][2] = "XS" --core size
+    info[0][1] = "assets.prod.novaquark.com/84521/03b8a53d-2b2c-48f9-828c-cfa8042f6670.png" --img src, leave "" if you do not have a picture uploaded
+    info[0][2] = "S" --core size
     info[0][3] = "by RedDog Industries" --maker / creator name
-    info[0][4] = "8.84 t" --dry mass 
-    info[0][5] = "14.1 g" -- ATMO Thrust
-    info[0][6] = "25.8 g" -- ATMO Brake
-    info[0][7] = "1,431 KM/H" -- ATMO Max Speed
-    info[0][8] = "2.77 g" -- ATMO Low Alt Lift
-    info[0][9] = "2.64 g" -- ATMO High Alt Lift
-    info[0][10] = "364 KM/H" -- ATMO Sus Speed
-    info[0][11] = "0 g" -- SPACE Thrust
-    info[0][12] = "0 g" -- SPACE Brake
-    info[0][13] = "50,000 KM/H" -- SPACE Max Speed
-    info[0][14] = "0 g" -- SPACE Low Alt Lift
+    info[0][4] = "78 t" --dry mass 
+    info[0][5] = "5.06 g" -- ATMO Thrust
+    info[0][6] = "25.2 g" -- ATMO Brake
+    info[0][7] = "1,154 KM/H" -- ATMO Max Speed
+    info[0][8] = "4.13 g" -- ATMO Low Alt Lift
+    info[0][9] = "5.17 g" -- ATMO High Alt Lift
+    info[0][10] = "274 KM/H" -- ATMO Sus Speed
+    info[0][11] = "3.8 g" -- SPACE Thrust
+    info[0][12] = "7.38 g" -- SPACE Brake
+    info[0][13] = "46,211 KM/H" -- SPACE Max Speed
+    info[0][14] = "2.97 g" -- SPACE Low Alt Lift
     info[0][15] = "n/a" -- TOKEN price
-    info[0][16] = "7,500,000 ħ" -- BLUEPRINT price
+    info[0][16] = "200,000 ħ" -- BLUEPRINT price
     info[0][17] = "DYNAMIC" -- core type
 end
 -- END of SHIP INFO
 
 function DrawRDFooter()
+    --If you modify our script, please leave this intact
     local footertxt = "Developed by RedDog Industries"
     setNextFillColor(layer, 1, 1, 1, 0.1)
     addText(layer, font3, footertxt, rx*0.66, ry - 15)
@@ -50,6 +54,7 @@ function addWindow (wx, wy, wwx, wwy)
     setNextStrokeColor(layer, 1, 1, 1, .1)
     setNextStrokeWidth(layer, 1)
     
+    setNextShadow(layer, 20, 0, 0, 0, .7)
     setNextFillColor(layer, .5 ,.5, .5, .2)
     addBoxRounded(layer, wx, wy, wwx, wwy, 5)
 end
@@ -118,17 +123,22 @@ HexagonBackground(HoneycombLayer,OutlineLayer,r,g,b,a,str,stg,stb,sta,strokewidt
 addWindow(20, 20, rx-40, 66)
 addTxt (font, 30, 54, info[0][0], 1, 0, 0)
 addTxt (font3, 33, 74, info[0][3], 1, 1, 0)
-addTxt (font2, 740, 54, "Core Size: " .. info[0][2], 1, 1, 0)
+addTxt (font2, 745, 54, "Core Size: " .. info[0][2], 1, 1, 0)
 addTxt (font3, 745, 74, "Core type: " .. info[0][17], 1, .5, 0)
  -- image window
 addWindow(20, 100, 600, 400)
 
-if info[0][1] == "" then   
+if info[0][1] == "" then 
+ --   local shipimg = loadImage("assets.prod.novaquark.com/52764/bf6a920c-619c-496e-957d-da0cdc5d32a2.jpg")
+ --   addImage(layer, shipimg, 22, 102, 596, 396)
+    
     addTxt(font, 120, 300, "Image not available", 1, .5, 0)
+    
     else
     local shipimg = loadImage(info[0][1])
-    addImage(layer, shipimg, 22, 102, 596, 396)
+    addImage(imagelayer, shipimg, 22, 102, 596, 396)
     end
+
 
  -- stats window
 addWindow(640, 100, 364, 400)
@@ -167,4 +177,5 @@ addWindow(20, 516, 450, 80)
 addTxt(font2, 33, 544, "Blueprint Price: " .. info[0][16], 1, .5, .2)
 addTxt(font2, 33, 584, "Token Price:       " .. info[0][15], 1, .5, .2)
 DrawRDFooter()
+
 
